@@ -13,11 +13,9 @@ export async function POST(request) {
     const response = await axios.post(
       `https://qr-api-service/generate-qr/?url=${encodeURIComponent(url)}`
     );
-    const qrCodeUrl =
-      response.data.qrCodeUrl || response.request.res.responseUrl;
-    return NextResponse.json({ qr_code_url: qrCodeUrl });
+    return NextResponse.json(response.data);
   } catch (error) {
-    console.error("Error generating QR Code:", error.message);
+    console.error("Error generating QR Code:", error);
     return NextResponse.json(
       { error: "Failed to generate QR Code" },
       { status: 500 }
